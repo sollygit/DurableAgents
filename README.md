@@ -1,0 +1,135 @@
+# Durable Agents Extension with Azure Functions
+
+Azure Functions hosting durable agents and orchestrations to demonstrate a different scenario for hosting and orchestrating conversational agents using Azure Functions.
+
+![ms-agent](./images/diagram.png)
+![dts](./images/dts1.png)
+![dts](./images/dts2.png)
+![mcp](./images/mcp-inspector.png)
+
+## Running the Samples
+
+These samples are designed to be run locally in a cloned repository.
+
+### Prerequisites
+
+The following prerequisites are required to run the samples:
+
+- [.NET 10.0 SDK or later](https://dotnet.microsoft.com/download/dotnet)
+- [Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local) (version 4.x or later)
+- [Microsoft Foundry project](https://learn.microsoft.com/azure/foundry/how-to/create-projects) with a deployed model, configured through `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_MODEL` (gpt-5.4-mini or better is recommended)
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) installed and authenticated (`az login`) for RBAC-based authentication
+- [Durable Task Scheduler](https://learn.microsoft.com/azure/azure-functions/durable/durable-task-scheduler/develop-with-durable-task-scheduler) (local emulator or Azure-hosted)
+- [Docker](https://docs.docker.com/get-docker/) installed if running the Durable Task Scheduler emulator locally
+
+### Configuring RBAC Permissions for Azure OpenAI
+
+These samples are configured to use the Azure OpenAI service with RBAC permissions to access the model. You'll need to configure the RBAC permissions for the Azure OpenAI service to allow the Azure Functions app to access the model.
+
+Below is an example of how to configure the RBAC permissions for the Azure OpenAI service to allow the current user to access the model.
+
+Bash (Linux/macOS/WSL):
+
+```bash
+az role assignment create \
+    --assignee "yourname@contoso.com" \
+    --role "Cognitive Services OpenAI User" \
+    --scope /subscriptions/<your-subscription-id>/resourceGroups/<your-resource-group-name>/providers/Microsoft.CognitiveServices/accounts/<your-openai-resource-name>
+```
+
+PowerShell:
+
+```powershell
+az role assignment create `
+    --assignee "yourname@contoso.com" `
+    --role "Cognitive Services OpenAI User" `
+    --scope /subscriptions/<your-subscription-id>/resourceGroups/<your-resource-group-name>/providers/Microsoft.CognitiveServices/accounts/<your-openai-resource-name>
+```
+
+More information on how to configure RBAC permissions for Azure OpenAI can be found in the [Azure OpenAI documentation](https://learn.microsoft.com/azure/ai-services/openai/how-to/create-resource?pivots=cli).
+
+### Start Durable Task Scheduler
+
+Most samples use the Durable Task Scheduler (DTS) to support hosted agents and durable orchestrations. DTS also allows you to view the status of orchestrations and their inputs and outputs from a web UI.
+
+To run the Durable Task Scheduler locally, you can use the following `docker` command:
+
+```bash
+docker run -d --name dts-emulator -p 8080:8080 -p 8082:8082 mcr.microsoft.com/dts/dts-emulator:latest
+```
+
+The DTS dashboard will be available at `http://localhost:8080`.
+
+### Start the Azure Storage Emulator
+
+All Function apps require an Azure Storage account to store functions-specific state. You can use the Azure Storage Emulator to run a local instance of the Azure Storage service.
+
+You can run the Azure Storage emulator locally as a standalone process or via a Docker container.
+
+#### Docker
+
+```bash
+docker run -d --name storage-emulator -p 10000:10000 -p 10001:10001 -p 10002:10002 mcr.microsoft.com/azure-storage/azurite
+```
+
+#### Standalone
+
+```bash
+npm install -g azurite
+azurite
+```
+
+### Environment Configuration
+
+Each sample includes a `local.settings.json.template` containing the settings it requires. Copy it to `local.settings.json`, then update the Foundry settings:
+
+```bash
+cp local.settings.json.template local.settings.json
+```
+
+```json
+{
+  "Values": {
+    "FOUNDRY_PROJECT_ENDPOINT": "https://your-foundry-resource.services.ai.azure.com/api/projects/default-project",
+    "FOUNDRY_MODEL": "your-deployment-name"
+  }
+}
+```
+
+Alternatively, you can set the environment variables in the command line.
+
+### Bash (Linux/macOS/WSL)
+
+```bash
+export FOUNDRY_PROJECT_ENDPOINT="https://your-foundry-resource.services.ai.azure.com/api/projects/default-project"
+export FOUNDRY_MODEL="your-deployment-name"
+```
+
+### PowerShell
+
+```powershell
+$env:FOUNDRY_PROJECT_ENDPOINT="https://your-foundry-resource.services.ai.azure.com/api/projects/default-project"
+$env:FOUNDRY_MODEL="your-deployment-name"
+```
+
+These environment variables, when set, will override the values in the `local.settings.json` file, making it convenient to test the sample without having to update the `local.settings.json` file.
+
+### Start the Azure Functions app
+
+Navigate to the sample directory and start the Azure Functions app:
+
+```bash
+dotnet run
+```
+
+The Azure Functions app will be available at `http://localhost:7071`.
+
+### Test the Azure Functions app
+
+The README.md file in each sample directory contains instructions for testing the sample. Each sample also includes a `demo.http` file that can be used to test the sample from the command line. These files can be opened in VS Code with the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension or in the Visual Studio IDE.
+
+### Viewing the sample output
+
+The Azure Functions app logs are displayed in the terminal where you ran `dotnet run`. This is where most agent output will be displayed. You can adjust logging levels in the `host.json` file as needed.
+
+You can also see the state of agents and orchestrations in the DTS dashboard.

@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>5a73dc1f-0dc9-42ae-83b3-3926f41dfe98</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <!-- Azure Functions -->
+  <ItemGroup>
+    <PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
+    <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" Version="1.10.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Hosting.AzureFunctions" Version="1.16.0-preview.261029.1" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.52.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.DurableTask" Version="1.21.1" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.DurableTask.AzureManaged" Version="1.11.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.3.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.OpenTelemetry" Version="1.2.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="2.1.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.20.1" />
+  </ItemGroup>
+
+  <!-- Microsoft Agent Framework -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Agents.AI" Version="1.28.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.28.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.28.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Workflows.Generators" Version="1.28.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.28.0" />
+  </ItemGroup>
+
+  <!-- Durable Task -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DurableTask.Client" Version="1.28.0" />
+    <PackageReference Include="Microsoft.DurableTask.Client.AzureManaged" Version="1.28.0" />
+    <PackageReference Include="Microsoft.DurableTask.Worker" Version="1.28.0" />
+    <PackageReference Include="Microsoft.DurableTask.Worker.AzureManaged" Version="1.28.0" />
+  </ItemGroup>
+
+</Project>

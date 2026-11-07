@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "TASKHUB_NAME": "FluentHubDev",
+    "DURABLE_TASK_SCHEDULER_CONNECTION_STRING": "Endpoint=https://fluent-dts-awcwd9abgshuf.australiasoutheast.durabletask.io;Authentication=DefaultAzure",
+    "FOUNDRY_PROJECT_ENDPOINT": "https://ai-foundry-spark-resource.services.ai.azure.com/api/projects/ai-foundry-spark",
+    "FOUNDRY_MODEL": "gpt-4.1-nano"
+  }
+}

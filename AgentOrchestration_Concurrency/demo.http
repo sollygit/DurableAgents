@@ -1,0 +1,10 @@
+### Start the multi-agent concurrent orchestration
+
+# @name startOrchestration
+POST http://localhost:7071/api/multiagent/run
+Content-Type: text/plain
+
+What is temperature?
+
+### Get orchestration status
+GET {{startOrchestration.response.body.$.statusQueryGetUri}}

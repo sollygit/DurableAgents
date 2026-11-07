@@ -1,0 +1,27 @@
+### Run an agent that can schedule orchestrations as tool calls
+# @name startOrchestration
+POST http://localhost:7071/api/agents/publisher/run
+Content-Type: text/plain
+
+Start a content generation workflow for the topic 'The Future of Artificial Intelligence'
+
+### Extract session ID from response headers to use in subsequent requests
+@sessionId = {{startOrchestration.response.headers.x-ms-session-id}}
+
+### Check the status of the workflow
+POST http://localhost:7071/api/agents/publisher/run?session_id={{sessionId}}
+Content-Type: text/plain
+
+Check the status of the workflow you previously started
+
+### Reject content with feedback
+POST http://localhost:7071/api/agents/publisher/run?session_id={{sessionId}}
+Content-Type: text/plain
+
+Reject the content with feedback: The article needs more technical depth and better examples.
+
+### Approve content
+POST http://localhost:7071/api/agents/publisher/run?session_id={{sessionId}}
+Content-Type: text/plain
+
+Approve the content
