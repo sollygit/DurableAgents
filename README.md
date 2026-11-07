@@ -1,4 +1,4 @@
-# Durable Agents Extension with Azure Functions
+# Durable Task extension for Microsoft Agent Framework
 
 Azure Functions hosting durable agents and orchestrations to demonstrate a different scenario for hosting and orchestrating conversational agents using Azure Functions.
 
