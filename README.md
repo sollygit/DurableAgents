@@ -1,5 +1,6 @@
 # Durable Task extension for Microsoft Agent Framework
 
+The Durable Task Extension for the Microsoft Agent Framework (built on Azure Durable Task / Azure Functions) adds fault tolerance, automatic checkpointing, and persistent state management to long-running or multi-step AI agents.
 Azure Functions hosting durable agents and orchestrations to demonstrate a different scenario for hosting and orchestrating conversational agents using Azure Functions.
 
 ![ms-agent](./images/diagram.png)
