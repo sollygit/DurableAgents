@@ -48,7 +48,6 @@ Copy `local.settings.json.template` to `local.settings.json`, then update it wit
 1. **Start the Function App**:
 
    ```bash
-   cd dotnet/samples/DurableAgents/AzureFunctions/07_AgentAsMcpTool
    dotnet run
    ```
 

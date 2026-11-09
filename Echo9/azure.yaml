@@ -1,0 +1,53 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+requiredVersions:
+  extensions:
+    azure.ai.agents: '>=1.0.0-beta.4'
+name: echo9
+services:
+  ai-project:
+    host: azure.ai.project
+    deployments:
+      - name: gpt-4.1-nano
+        model:
+          format: OpenAI
+          name: gpt-4.1-nano
+          version: '2026-03-17'
+        sku:
+          name: GlobalStandard
+          capacity: 10
+  echo9:
+    host: azure.ai.agent
+    metadata:
+      tags:
+        - AI Agent Hosting
+        - Responses Protocol
+        - Agent Framework
+        - .NET
+    project: .
+    language: csharp
+    codeConfiguration:
+      runtime: dotnet_10
+      entryPoint: echo9.dll
+      dependencyResolution: remote_build
+    uses:
+      - ai-project
+    kind: hosted
+    name: echo9
+    displayName: echo9
+    description: Minimal Echo9 agent using the Responses protocol with the Agent
+      Framework approach in C#. Uses Microsoft.Agents.AI to create an AIAgent
+      backed by a Foundry model, hosted via AgentHost.CreateBuilder() for
+      automatic port, health, and telemetry configuration.
+    protocols:
+      - protocol: responses
+        version: 2.0.0
+    environmentVariables:
+      - name: AZURE_AI_MODEL_DEPLOYMENT_NAME
+        value: ${AZURE_AI_MODEL_DEPLOYMENT_NAME}
+    container:
+      resources:
+        cpu: '0.5'
+        memory: 1.0Gi
+infra:
+  provider: microsoft.foundry

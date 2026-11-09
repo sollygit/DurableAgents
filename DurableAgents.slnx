@@ -4,6 +4,7 @@
   <Project Path="AgentOrchestration_Concurrency/AgentOrchestration_Concurrency.csproj" />
   <Project Path="AgentOrchestration_Conditionals/AgentOrchestration_Conditionals.csproj" />
   <Project Path="AgentOrchestration_HITL/AgentOrchestration_HITL.csproj" />
+  <Project Path="Echo9/Echo9.csproj" />
   <Project Path="LongRunningTools/LongRunningTools.csproj" />
   <Project Path="ReliableStreaming/ReliableStreaming.csproj" />
   <Project Path="SingleAgent/SingleAgent.csproj" />
