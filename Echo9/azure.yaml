@@ -16,7 +16,7 @@ services:
         sku:
           name: GlobalStandard
           capacity: 10
-  echo9:
+  echo-9:
     host: azure.ai.agent
     metadata:
       tags:
@@ -28,7 +28,7 @@ services:
     language: csharp
     codeConfiguration:
       runtime: dotnet_10
-      entryPoint: echo9.dll
+      entryPoint: Echo9.dll
       dependencyResolution: remote_build
     uses:
       - ai-project

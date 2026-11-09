@@ -29,7 +29,7 @@ var env = Environment.GetEnvironmentVariable("AZURE_ENV_NAME");
 
 TokenCredential credential = env switch
 {
-    "develepment" => new AzureCliCredential(),
+    "development" => new AzureCliCredential(),
     _ => new DefaultAzureCredential()
 };
 
